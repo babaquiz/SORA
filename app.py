@@ -7,6 +7,22 @@ from sklearn.model_selection import train_test_split, RandomizedSearchCV, cross_
 from sklearn.metrics import r2_score, mean_squared_error
 import segyio
 
+import urllib.request
+
+
+DATA_URL = "https://huggingface.co/datasets/Rafisuper/SORA/resolve/main/Citra%20Sumur.segy?download=true"
+DATA_PATH = "Citra Sumur.segy"
+
+@st.cache_resource
+def download_data():
+    if not os.path.exists(DATA_PATH):
+        with st.spinner("Mengunduh data"):
+            urllib.request.urlretrieve(DATA_URL, DATA_PATH)
+    return DATA_PATH
+
+
+file_segy_siap = download_data()
+
 st.set_page_config(
     page_title="SORA (Subsurface Optimization and Recovery Assistant)",
     layout="wide"
