@@ -1,7 +1,7 @@
 streamlit
-scikit-learn
-pandas
 numpy
+pandas
+scikit-learn
 segyio
 openpyxl
-python-3.11
+requests
