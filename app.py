@@ -1,5 +1,12 @@
 import os
 import urllib.request
+import warnings
+
+# Abaikan UserWarning dari scikit-learn / joblib
+warnings.filterwarnings("ignore", category=UserWarning)
+
+import os
+import urllib.request
 import numpy as np
 import pandas as pd
 import segyio
