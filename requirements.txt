@@ -4,3 +4,4 @@ pandas
 numpy
 segyio
 openpyxl
+python-3.11
