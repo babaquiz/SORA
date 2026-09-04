@@ -13,14 +13,34 @@ import urllib.request
 DATA_URL = "https://huggingface.co/datasets/Rafisuper/SORA/resolve/main/Citra%20Sumur.segy?download=true"
 DATA_PATH = "Citra Sumur.segy"
 
-@st.cache_resource
+# TAMPILKAN INTERFACE UTAMA TERLEBIH DAHULU AGAR SERVER TIDAK TIMEOUT/CRASH
+st.title("Demo Sistem Analisis SEGY Live")
+st.subheader("Sistem Pengolahan Data Seismik")
+
+# FUNGSI UNDUH DENGAN PROGRES BAR SUPAYA SERVER TETAP AKTIF
 def download_data():
     if not os.path.exists(DATA_PATH):
-        with st.spinner("Mengunduh data"):
-            urllib.request.urlretrieve(DATA_URL, DATA_PATH)
+        progress_bar = st.progress(0, text="Menghubungkan ke server data Hugging Face...")
+        
+        # Fungsi callback untuk menghitung persentase unduhan
+        def reporthook(count, block_size, total_size):
+            current_progress = count * block_size
+            if total_size > 0:
+                percent = min(int(current_progress * 100 / total_size), 100)
+                progress_bar.progress(percent / 100, text=f"Sedang mengunduh file Citra Sumur (1.22 GB): {percent}% selesai")
+        
+        try:
+            urllib.request.urlretrieve(DATA_URL, DATA_PATH, reporthook)
+            progress_bar.empty()
+            st.success("Data sistem 1.22 GB berhasil dimuat sepenuhnya!")
+        except Exception as e:
+            progress_bar.empty()
+            st.error(f"Gagal mengunduh data: {e}")
+            st.info("Silakan coba klik 'Reboot app' di menu kanan bawah.")
+            st.stop()
     return DATA_PATH
 
-
+# Jalankan fungsi unduhan dengan aman setelah halaman web dirender
 file_segy_siap = download_data()
 
 st.set_page_config(
