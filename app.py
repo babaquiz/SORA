@@ -160,7 +160,7 @@ class SEIRAAICore:
         "max_features": ["sqrt", 0.8, 1.0],
     }
 
-    base_model = RandomForestRegressor(random_state=42, n_jobs=-1)
+    base_model = RandomForestRegressor(random_state=42, n_jobs=1)
 
     search = RandomizedSearchCV(
         estimator=base_model,
