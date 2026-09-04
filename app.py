@@ -9,6 +9,17 @@ import segyio
 
 import urllib.request
 
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="sklearn")
+import streamlit as st
+import joblib
+
+@st.cache_resource
+def load_my_model():
+    # Ganti dengan path model kamu
+    return joblib.load("model.pkl") 
+
+model = load_my_model()
 
 DATA_URL = "https://huggingface.co/datasets/Rafisuper/SORA/resolve/main/Citra%20Sumur.segy?download=true"
 DATA_PATH = "Citra Sumur.segy"
