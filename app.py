@@ -169,7 +169,7 @@ class SEIRAAICore:
         cv=cv_folds,
         scoring="r2",
         random_state=42,
-        n_jobs=-1,
+        n_jobs=1,
         verbose=0,
     )
     search.fit(X_train, y_train)
