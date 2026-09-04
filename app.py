@@ -6,7 +6,12 @@ import segyio
 import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import RandomizedSearchCV, cross_val_score
+# TAMBAHKAN train_test_split DI BARIS INI:
+from sklearn.model_selection import (
+    RandomizedSearchCV,
+    cross_val_score,
+    train_test_split,
+)
 
 # 1. PERBAIKAN: st.set_page_config WAJIB dipanggil paling awal
 st.set_page_config(
